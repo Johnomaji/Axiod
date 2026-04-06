@@ -1,26 +1,54 @@
-@import "tailwindcss";
+/* HeroUI v3 styles — includes Tailwind CSS v4 */
+@import "@heroui/styles";
 
+/* ── Axiod Brand Variables ── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --axiod-bg: #050D1A;
+  --axiod-surface: #091528;
+  --axiod-surface-2: #0E1E33;
+  --axiod-border: #1B344F;
+  --axiod-border-hi: #2A4D72;
+  --axiod-signal: #00D4FF;
+  --axiod-signal-dim: rgba(0, 212, 255, 0.12);
+  --axiod-alert: #FF6B35;
+  --axiod-alert-dim: rgba(255, 107, 53, 0.12);
+  --axiod-green: #2AE88B;
+  --axiod-green-dim: rgba(42, 232, 139, 0.12);
+  --axiod-gold: #FFB020;
+  --axiod-text: #DCE8F5;
+  --axiod-text-muted: #5F7E9E;
+  --axiod-text-dim: #2E4A66;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Override HeroUI dark theme with Axiod palette */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--axiod-bg);
+  color: var(--axiod-text);
+  overflow-x: hidden;
+}
+
+/* ── Pulse animation ── */
+@keyframes blink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.4); }
+}
+
+.pulse-dot {
+  animation: blink 2s infinite;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--axiod-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--axiod-border-hi);
+  border-radius: 3px;
 }

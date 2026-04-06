@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Axiod Robotics — Brand Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#050D1A;
+  --surface:#091528;
+  --surface-2:#0E1E33;
+  --surface-3:#132840;
+  --border:#1B344F;
+  --border-hi:#2A4D72;
+  --signal:#00D4FF;
+  --signal-dim:rgba(0,212,255,0.12);
+  --alert:#FF6B35;
+  --alert-dim:rgba(255,107,53,0.12);
+  --green:#2AE88B;
+  --green-dim:rgba(42,232,139,0.12);
+  --gold:#FFB020;
+  --text:#DCE8F5;
+  --text-muted:#5F7E9E;
+  --text-dim:#2E4A66;
+  --ff-display:'Syne',sans-serif;
+  --ff-body:'DM Sans',sans-serif;
+  --ff-mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--ff-body);font-size:15px;line-height:1.6;overflow-x:hidden}
+
+/* ── TOP BAR ── */
+.top-bar{position:fixed;top:0;left:0;right:0;z-index:100;height:54px;background:rgba(5,13,26,0.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 36px}
+.tb-logo{display:flex;align-items:center;gap:10px}
+.tb-logo svg{width:26px;height:26px}
+.tb-wordmark .name{font-family:var(--ff-display);font-weight:800;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:white}
+.tb-wordmark .sub{font-family:var(--ff-display);font-weight:400;font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--text-muted);display:block;line-height:1}
+.tb-right{display:flex;align-items:center;gap:24px}
+.tb-links{display:flex;gap:6px}
+.tb-link{font-family:var(--ff-mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);padding:6px 12px;border-radius:4px;cursor:pointer;border:none;background:none;transition:.18s}
+.tb-link:hover{color:var(--text)}
+.tb-link.active{color:var(--signal);background:var(--signal-dim)}
+.tb-badge{font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);letter-spacing:0.08em;border:1px solid var(--border);padding:4px 10px;border-radius:3px}
+
+/* ── SECTION WRAPPER ── */
+.page-section{padding-top:54px}
+
+/* ── HERO ── */
+.bk-hero{background:linear-gradient(160deg,#070F1E 0%,#0B1A30 50%,#060C18 100%);padding:88px 48px 72px;position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
+.bk-hero::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(27,52,79,0.28) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(27,52,79,0.28) 40px);pointer-events:none}
+.bk-hero-glow{position:absolute;right:-80px;top:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(0,212,255,0.05) 0%,transparent 65%);pointer-events:none}
+.bk-hero-inner{max-width:1120px;margin:0 auto;position:relative;z-index:1;display:grid;grid-template-columns:1fr 420px;gap:64px;align-items:center}
+.bk-eyebrow{font-family:var(--ff-mono);font-size:10px;letter-spacing:0.22em;color:var(--signal);text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:12px}
+.bk-eyebrow::before{content:'';width:28px;height:1px;background:var(--signal);flex-shrink:0}
+.bk-hero h1{font-family:var(--ff-display);font-weight:800;font-size:clamp(38px,5vw,62px);line-height:1.04;letter-spacing:-0.025em;color:white;margin-bottom:18px}
+.bk-hero p{font-size:16px;color:var(--text-muted);line-height:1.75;max-width:480px}
+.hero-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hmg-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 18px}
+.hmg-label{font-family:var(--ff-mono);font-size:9px;letter-spacing:0.18em;color:var(--text-dim);text-transform:uppercase;margin-bottom:6px}
+.hmg-val{font-family:var(--ff-display);font-weight:700;font-size:14px;color:white}
+.hmg-val.signal{color:var(--signal)}
+
+/* ── SHARED SECTION STYLES ── */
+.bk-section{max-width:1120px;margin:0 auto;padding:72px 48px}
+.bk-section.alt-bg{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);max-width:100%;padding-left:0;padding-right:0}
+.bk-section.alt-bg .bk-section-inner{max-width:1120px;margin:0 auto;padding:72px 48px}
+.section-label{font-family:var(--ff-mono);font-size:10px;letter-spacing:0.24em;color:var(--signal);text-transform:uppercase;margin-bottom:36px;display:flex;align-items:center;gap:14px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── LOGO SYSTEM ── */
+.logo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:10px;overflow:hidden;margin-bottom:36px}
+.logo-cell{padding:52px 36px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+.logo-cell.on-dark{background:#080F1E}
+.logo-cell.on-light{background:#E4ECF5}
+.logo-cell.on-black{background:#020810}
+.logo-cell-tag{font-family:var(--ff-mono);font-size:9px;letter-spacing:0.18em;color:var(--text-muted);text-transform:uppercase}
+.logo-cell.on-light .logo-cell-tag{color:#7A8E9E}
+.wordmark{display:flex;align-items:center;gap:13px}
+.wordmark-text .wm-name{font-family:var(--ff-display);font-weight:800;font-size:24px;letter-spacing:0.07em;text-transform:uppercase;line-height:1}
+.wordmark-text .wm-sub{font-family:var(--ff-display);font-weight:400;font-size:9px;letter-spacing:0.32em;text-transform:uppercase;margin-top:4px}
+
+/* Logo Construction */
+.logo-construction{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:40px;display:grid;grid-template-columns:140px 1fr;gap:48px;align-items:center}
+.anatomy-list{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.anatomy-item{}
+.anat-label{font-family:var(--ff-mono);font-size:9px;letter-spacing:0.16em;color:var(--signal);text-transform:uppercase;margin-bottom:5px}
+.anat-desc{font-size:12px;color:var(--text-muted);line-height:1.6}
+
+/* ── COLOR SYSTEM ── */
+.color-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:14px}
+.swatch{border-radius:7px;overflow:hidden;border:1px solid rgba(255,255,255,0.05)}
+.swatch-color{height:96px}
+.swatch-meta{background:var(--surface);padding:11px 13px}
+.swatch-name{font-family:var(--ff-display);font-weight:600;font-size:11px;color:var(--text);margin-bottom:2px}
+.swatch-hex{font-family:var(--ff-mono);font-size:10px;color:var(--text-muted);margin-bottom:5px}
+.swatch-use{font-size:10px;color:var(--text-dim);line-height:1.4}
+.color-usage-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px}
+.cu-card{background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:20px 22px}
+.cu-title{font-family:var(--ff-display);font-weight:600;font-size:13px;color:white;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.cu-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cu-text{font-size:13px;color:var(--text-muted);line-height:1.65}
+
+/* ── TYPOGRAPHY ── */
+.type-cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.type-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:36px}
+.type-font-label{font-family:var(--ff-mono);font-size:9px;letter-spacing:0.2em;color:var(--signal);text-transform:uppercase;margin-bottom:22px}
+.type-display-xl{font-family:var(--ff-display);font-weight:800;font-size:52px;line-height:1;letter-spacing:-0.025em;color:white;margin-bottom:6px}
+.type-meta{font-family:var(--ff-mono);font-size:9px;color:var(--text-dim);margin-bottom:20px}
+.type-scale-row{margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.type-scale-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.ts-sample{color:white;margin-bottom:2px}
+.ts-spec{font-family:var(--ff-mono);font-size:9px;color:var(--text-dim)}
+.type-mono-block{font-family:var(--ff-mono);font-size:12.5px;color:var(--signal);line-height:1.7;background:var(--surface-2);padding:16px 18px;border-radius:5px;border-left:2px solid var(--signal);margin-top:20px}
+.type-body-block p{font-size:14px;color:var(--text-muted);line-height:1.75;margin-bottom:10px}
+.type-body-block p:last-child{margin-bottom:0}
+.charset{font-family:var(--ff-mono);font-size:11px;color:var(--text-dim);letter-spacing:0.04em;line-height:1.8;margin-top:18px;padding-top:18px;border-top:1px solid var(--border)}
+
+/* ── ICONOGRAPHY ── */
+.icon-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:14px}
+.icon-cell{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:26px 14px 18px;display:flex;flex-direction:column;align-items:center;gap:11px;transition:.2s;cursor:default}
+.icon-cell:hover{background:var(--signal-dim);border-color:rgba(0,212,255,0.35);transform:translateY(-2px)}
+.icon-cell svg{width:30px;height:30px}
+.icon-label{font-family:var(--ff-mono);font-size:9px;letter-spacing:0.1em;color:var(--text-muted);text-align:center;text-transform:uppercase}
+
+/* ── SPACING ── */
+.spacing-row{display:grid;grid-template-columns:repeat(8,1fr);gap:0;background:var(--border);border-radius:8px;overflow:hidden;margin-bottom:28px}
+.sp-cell{background:var(--surface);padding:20px 16px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.sp-block{background:var(--signal-dim);border:1px solid rgba(0,212,255,0.2);border-radius:2px}
+.sp-val{font-family:var(--ff-mono);font-size:10px;color:var(--signal);text-align:center}
+.sp-name{font-family:var(--ff-mono);font-size:9px;color:var(--text-muted);text-align:center}
+
+/* ── BRAND VOICE ── */
+.tone-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:36px}
+.tone-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:28px}
+.tone-word{font-family:var(--ff-display);font-weight:800;font-size:20px;color:white;margin-bottom:10px;letter-spacing:-0.01em}
+.tone-desc{font-size:13px;color:var(--text-muted);line-height:1.65}
+.tone-do-dont{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tdd-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:24px}
+.tdd-title{font-family:var(--ff-display);font-weight:700;font-size:13px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.tdd-title.do{color:var(--green)}
+.tdd-title.dont{color:var(--alert)}
+.tdd-item{font-size:13px;color:var(--text-muted);line-height:1.6;padding:8px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:10px}
+.tdd-item:last-child{border-bottom:none;padding-bottom:0}
+.tdd-item::before{font-family:var(--ff-mono);font-size:11px;flex-shrink:0;margin-top:2px}
+.tdd-item.do::before{content:'✓';color:var(--green)}
+.tdd-item.dont::before{content:'✕';color:var(--alert)}
+
+/* ── DASHBOARD SECTION ── */
+.db-preview{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.db-preview-bar{background:var(--surface-2);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:8px}
+.db-dot{width:8px;height:8px;border-radius:50%}
+.db-bar-title{font-family:var(--ff-mono);font-size:11px;color:var(--text-muted);margin-left:6px;letter-spacing:0.08em}
+.db-preview-body{display:grid;grid-template-columns:180px 1fr 260px;height:380px}
+.db-preview-sidebar{background:var(--surface);border-right:1px solid var(--border);padding:12px 0}
+.db-preview-main{background:var(--bg);overflow:hidden;position:relative}
+.db-preview-right{background:var(--surface);border-left:1px solid var(--border);padding:12px}
+
+/* Sidebar nav items */
+.pdb-nav-item{display:flex;align-items:center;gap:9px;padding:8px 12px;margin:1px 8px;border-radius:4px;font-family:var(--ff-display);font-weight:500;font-size:11px;color:var(--text-muted);cursor:default}
+.pdb-nav-item.active{background:var(--signal-dim);color:var(--signal);border:1px solid rgba(0,212,255,0.15)}
+.pdb-nav-item svg{width:14px;height:14px;flex-shrink:0}
+.pdb-nav-label{font-family:var(--ff-mono);font-size:8px;letter-spacing:0.18em;color:var(--text-dim);text-transform:uppercase;padding:12px 20px 4px}
+.pdb-badge{margin-left:auto;background:var(--alert);color:white;font-family:var(--ff-mono);font-size:8px;padding:1px 5px;border-radius:8px}
+.pdb-badge.g{background:var(--green);color:#050D1A}
+
+/* Mini map in preview */
+.mini-tactical{width:100%;height:100%}
+
+/* Right panel alerts */
+.pdb-panel-title{font-family:var(--ff-display);font-weight:700;font-size:11px;color:white;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+.pdb-count{font-family:var(--ff-mono);font-size:9px;color:var(--text-muted);background:var(--surface-2);padding:2px 7px;border-radius:8px;border:1px solid var(--border)}
+.pdb-alert{background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:9px 10px;margin-bottom:6px;border-left:3px solid transparent}
+.pdb-alert.crit{border-left-color:var(--alert)}
+.pdb-alert.warn{border-left-color:var(--gold)}
+.pdb-alert.safe{border-left-color:var(--green)}
+.pdb-sev{font-family:var(--ff-mono);font-size:8px;text-transform:uppercase;margin-bottom:4px}
+.pdb-sev.crit{color:var(--alert)}
+.pdb-sev.warn{color:var(--gold)}
+.pdb-sev.safe{color:var(--green)}
+.pdb-msg{font-size:11px;color:var(--text);line-height:1.45;margin-bottom:4px}
+.pdb-loc{font-family:var(--ff-mono);font-size:9px;color:var(--text-muted)}
+.ai-chip{background:var(--signal-dim);border:1px solid rgba(0,212,255,0.2);border-radius:5px;padding:9px 10px;margin-bottom:10px}
+.ai-chip-lbl{font-family:var(--ff-mono);font-size:8px;letter-spacing:0.14em;color:var(--signal);text-transform:uppercase;margin-bottom:5px}
+.ai-chip-txt{font-size:10px;color:var(--text-muted);line-height:1.5}
+
+/* ── STAT CARDS ROW ── */
+.db-stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--border);border-top:1px solid var(--border)}
+.db-stat{background:var(--bg);padding:12px 16px}
+.db-stat-lbl{font-family:var(--ff-mono);font-size:8px;letter-spacing:0.12em;color:var(--text-muted);text-transform:uppercase;margin-bottom:6px}
+.db-stat-num{font-family:var(--ff-display);font-weight:800;font-size:22px;color:white;margin-bottom:2px}
+.db-stat-delta{font-family:var(--ff-mono);font-size:9px}
+.db-stat-delta.up{color:var(--alert)}
+.db-stat-delta.dn{color:var(--green)}
+
+/* ── COMPONENT LIBRARY SECTION ── */
+.component-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.comp-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:28px}
+.comp-title{font-family:var(--ff-display);font-weight:700;font-size:13px;color:white;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+/* Buttons */
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.btn-sm{font-family:var(--ff-display);font-weight:600;font-size:12px;letter-spacing:0.05em;padding:8px 18px;border-radius:4px;border:none;cursor:default}
+.btn-primary-sm{background:var(--signal);color:#050D1A}
+.btn-ghost-sm{background:none;border:1px solid var(--border-hi);color:var(--text)}
+.btn-danger-sm{background:var(--alert-dim);border:1px solid rgba(255,107,53,0.3);color:var(--alert)}
+.btn-ghost-sm:hover,.btn-primary-sm:hover{opacity:0.85}
+/* Status tags */
+.tag-row{display:flex;gap:8px;flex-wrap:wrap}
+.tag{font-family:var(--ff-mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;border-radius:3px;border:1px solid transparent}
+.tag-crit{background:var(--alert-dim);border-color:rgba(255,107,53,0.3);color:var(--alert)}
+.tag-warn{background:rgba(255,176,32,0.1);border-color:rgba(255,176,32,0.25);color:var(--gold)}
+.tag-safe{background:var(--green-dim);border-color:rgba(42,232,139,0.25);color:var(--green)}
+.tag-info{background:var(--signal-dim);border-color:rgba(0,212,255,0.2);color:var(--signal)}
+.tag-neutral{background:var(--surface-2);border-color:var(--border);color:var(--text-muted)}
+/* Form inputs */
+.input-demo{background:var(--surface-2);border:1px solid var(--border);border-radius:5px;padding:9px 14px;font-family:var(--ff-mono);font-size:12px;color:var(--text-muted);width:100%;margin-bottom:10px;outline:none}
+.input-demo.focused{border-color:var(--signal);color:var(--text)}
+.input-label{font-family:var(--ff-mono);font-size:9px;letter-spacing:0.14em;color:var(--text-muted);text-transform:uppercase;margin-bottom:5px}
+
+/* ── FOOTER ── */
+.bk-footer{background:var(--surface);border-top:1px solid var(--border);padding:32px 48px;display:flex;align-items:center;justify-content:space-between}
+.footer-logo{display:flex;align-items:center;gap:10px;font-family:var(--ff-display);font-weight:800;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:white}
+.footer-logo svg{width:20px;height:20px}
+.footer-meta{font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);letter-spacing:0.06em}
+
+/* Scrollspy active state */
+.active-section{}
+</style>
+</head>
+<body>
+
+<!-- ════ TOP BAR ════ -->
+<header class="top-bar">
+  <div class="tb-logo">
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="60,8 104,32 104,88 60,112 16,88 16,32" fill="none" stroke="#00D4FF" stroke-width="2"/>
+      <circle cx="60" cy="8" r="3" fill="#00D4FF"/><circle cx="104" cy="32" r="3" fill="#00D4FF"/><circle cx="104" cy="88" r="3" fill="#00D4FF"/><circle cx="60" cy="112" r="3" fill="#00D4FF"/><circle cx="16" cy="88" r="3" fill="#00D4FF"/><circle cx="16" cy="32" r="3" fill="#00D4FF"/>
+      <path d="M44,92 L60,30 L76,92" fill="none" stroke="white" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"/>
+      <line x1="51.5" y1="71" x2="68.5" y2="71" stroke="white" stroke-width="4"/>
+      <circle cx="60" cy="30" r="5" fill="#00D4FF"/>
+      <path d="M82,50 A14,14 0 0 1 82,70" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+      <path d="M90,42 A24,24 0 0 1 90,78" fill="none" stroke="#00D4FF" stroke-width="1.2" stroke-linecap="round" opacity="0.45"/>
+    </svg>
+    <div class="tb-wordmark"><div class="name">AXIOD</div><div class="sub">Robotics</div></div>
+  </div>
+  <div class="tb-links">
+    <button class="tb-link" onclick="goto('logo')">Logo</button>
+    <button class="tb-link" onclick="goto('color')">Color</button>
+    <button class="tb-link" onclick="goto('type')">Typography</button>
+    <button class="tb-link" onclick="goto('icons')">Icons</button>
+    <button class="tb-link" onclick="goto('voice')">Voice</button>
+    <button class="tb-link" onclick="goto('ui')">UI System</button>
+  </div>
+  <div class="tb-badge">Brand Kit v1.0 · 2025</div>
+</header>
+
+<!-- ════ HERO ════ -->
+<section class="page-section">
+  <div class="bk-hero">
+    <div class="bk-hero-glow"></div>
+    <div class="bk-hero-inner">
+      <div>
+        <div class="bk-eyebrow">Brand Design System — Axiod Robotics</div>
+        <h1>Design Language<br>Built for<br>the Mission</h1>
+        <p style="margin-top:16px">A precision visual system for an AI-powered security platform. Every element engineered to communicate trust, intelligence, and operational clarity — from Sand Hill Road to field deployment in Zamfara and Bauchi.</p>
+      </div>
+      <div class="hero-meta-grid">
+        <div class="hmg-card"><div class="hmg-label">Primary Font</div><div class="hmg-val signal">Syne</div></div>
+        <div class="hmg-card"><div class="hmg-label">Body Font</div><div class="hmg-val">DM Sans</div></div>
+        <div class="hmg-card"><div class="hmg-label">Accent Color</div><div class="hmg-val signal">#00D4FF</div></div>
+        <div class="hmg-card"><div class="hmg-label">Brand Sections</div><div class="hmg-val">06</div></div>
+        <div class="hmg-card" style="grid-column:span 2"><div class="hmg-label">Tagline</div><div class="hmg-val" style="font-size:12px">Intelligence Where It Matters Most.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 01 — LOGO SYSTEM ════ -->
+<div id="logo">
+<section class="bk-section">
+  <div class="section-label">01 — Logo System</div>
+
+  <div class="logo-grid">
+    <!-- Primary dark -->
+    <div class="logo-cell on-dark">
+      <div class="wordmark">
+        <svg width="50" height="50" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="60,8 104,32 104,88 60,112 16,88 16,32" fill="none" stroke="#00D4FF" stroke-width="2"/>
+          <circle cx="60" cy="8" r="3" fill="#00D4FF"/><circle cx="104" cy="32" r="3" fill="#00D4FF"/><circle cx="104" cy="88" r="3" fill="#00D4FF"/><circle cx="60" cy="112" r="3" fill="#00D4FF"/><circle cx="16" cy="88" r="3" fill="#00D4FF"/><circle cx="16" cy="32" r="3" fill="#00D4FF"/>
+          <path d="M44,92 L60,30 L76,92" fill="none" stroke="white" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"/>
+          <line x1="51.5" y1="71" x2="68.5" y2="71" stroke="white" stroke-width="4"/>
+          <circle cx="60" cy="30" r="5" fill="#00D4FF"/>
+          <path d="M82,50 A14,14 0 0 1 82,70" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+          <path d="M90,42 A24,24 0 0 1 90,78" fill="none" stroke="#00D4FF" stroke-width="1.2" stroke-linecap="round" opacity="0.45"/>
+        </svg>
+        <div class="wordmark-text">
+          <div class="wm-name" style="color:white">AXIOD</div>
+          <div class="wm-sub" style="color:#5F7E9E">Robotics</div>
+        </div>
+      </div>
+      <div class="logo-cell-tag">Primary — Dark Background</div>
+    </div>
+
+    <!-- On light -->
+    <div class="logo-cell on-light">
+      <div class="wordmark">
+        <svg width="50" height="50" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="60,8 104,32 104,88 60,112 16,88 16,32" fill="none" stroke="#0B7A9A" stroke-width="2"/>
+          <circle cx="60" cy="8" r="3" fill="#0B7A9A"/><circle cx="104" cy="32" r="3" fill="#0B7A9A"/><circle cx="104" cy="88" r="3" fill="#0B7A9A"/><circle cx="60" cy="112" r="3" fill="#0B7A9A"/><circle cx="16" cy="88" r="3" fill="#0B7A9A"/><circle cx="16" cy="32" r="3" fill="#0B7A9A"/>
+          <path d="M44,92 L60,30 L76,92" fill="none" stroke="#0D1E30" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"/>
+          <line x1="51.5" y1="71" x2="68.5" y2="71" stroke="#0D1E30" stroke-width="4"/>
+          <circle cx="60" cy="30" r="5" fill="#0B7A9A"/>
+          <path d="M82,50 A14,14 0 0 1 82,70" fill="none" stroke="#0B7A9A" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+          <path d="M90,42 A24,24 0 0 1 90,78" fill="none" stroke="#0B7A9A" stroke-width="1.2" stroke-linecap="round" opacity="0.45"/>
+        </svg>
+        <div class="wordmark-text">
+          <div class="wm-name" style="color:#0D1E30">AXIOD</div>
+          <div class="wm-sub" style="color:#5A7080">Robotics</div>
+        </div>
+      </div>
+      <div class="logo-cell-tag">Reverse — Light Background</div>
+    </div>
+
+    <!-- Icon scales -->
+    <div class="logo-cell on-black">
+      <div style="display:flex;align-items:center;gap:28px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+          <svg width="60" height="60" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="60,8 104,32 104,88 60,112 16,88 16,32" fill="none" stroke="#00D4FF" stroke-width="2"/>
+            <circle cx="60" cy="8" r="3" fill="#00D4FF"/><circle cx="104" cy="32" r="3" fill="#00D4FF"/><circle cx="104" cy="88" r="3" fill="#00D4FF"/><circle cx="60" cy="112" r="3" fill="#00D4FF"/><circle cx="16" cy="88" r="3" fill="#00D4FF"/><circle cx="16" cy="32" r="3" fill="#00D4FF"/>
+            <path d="M44,92 L60,30 L76,92" fill="none" stroke="white" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"/>
+            <line x1="51.5" y1="71" x2="68.5" y2="71" stroke="white" stroke-width="4"/>
+            <circle cx="60" cy="30" r="5" fill="#00D4FF"/>
+            <path d="M82,50 A14,14 0 0 1 82,70" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+            <path d="M90,42 A24,24 0 0 1 90,78" fill="none" stroke="#00D4FF" stroke-width="1.2" stroke-linecap="round" opacity="0.45"/>
+          </svg>
+          <span style="font-family:var(--ff-mono);font-size:9px;color:var(--text-dim)">60px</span>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+          <svg width="36" height="36" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="60,8 104,32 104,88 60,112 16,88 16,32" fill="none" stroke="#00D4FF" stroke-width="2"/>
+            <path d="M44,92 L60,30 L76,92" fill="none" stroke="white" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"/>
+            <line x1="51.5" y1="71" x2="68.5" y2="71" stroke="white" stroke-width="4"/>
+            <circle cx="60" cy="30" r="5" fill="#00D4FF"/>
+            <path d="M82,50 A14,14 0 0 1 82,70" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+          </svg>
+          <span style="font-family:var(--ff-mono);font-size:9px;color:var(--text-dim)">36px</span>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+          <svg width="20" height="20" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="60,8 104,32 104,88 60,112 16,88 16,32" fill="none" stroke="#00D4FF" stroke-width="2"/>
+            <path d="M44,92 L60,30 L76,92" fill="none" stroke="white" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"/>
+            <line x1="51.5" y1="71" x2="68.5" y2="71" stroke="white" stroke-width="4"/>
+            <circle cx="60" cy="30" r="5" fill="#00D4FF"/>
+          </svg>
+          <span style="font-family:var(--ff-mono);font-size:9px;color:var(--text-dim)">20px</span>
+        </div>
+      </div>
+      <div class="logo-cell-tag">Icon Only — Three Scales</div>
+    </div>
+  </div>
+
+  <!-- Logo Anatomy -->
+  <div class="logo-construction">
+    <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="60,8 104,32 104,88 60,112 16,88 16,32" fill="none" stroke="rgba(0,212,255,0.4)" stroke-width="1.5" stroke-dasharray="4 2"/>
+      <circle cx="60" cy="8" r="4" fill="none" stroke="#00D4FF" stroke-width="1.5"/>
+      <circle cx="104" cy="32" r="4" fill="none" stroke="#00D4FF" stroke-width="1.5"/>
+      <circle cx="104" cy="88" r="4" fill="none" stroke="#00D4FF" stroke-width="1.5"/>
+      <circle cx="60" cy="112" r="4" fill="none" stroke="#00D4FF" stroke-width="1.5"/>
+      <circle cx="16" cy="88" r="4" fill="none" stroke="#00D4FF" stroke-width="1.5"/>
+      <circle cx="16" cy="32" r="4" fill="none" stroke="#00D4FF" stroke-width="1.5"/>
+      <path d="M44,92 L60,30 L76,92" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter"/>
+      <line x1="51.5" y1="71" x2="68.5" y2="71" stroke="rgba(255,255,255,0.45)" stroke-width="3.5"/>
+      <circle cx="60" cy="30" r="6" fill="none" stroke="#00D4FF" stroke-width="1.5"/>
+      <path d="M82,50 A14,14 0 0 1 82,70" fill="none" stroke="#00D4FF" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M90,42 A24,24 0 0 1 90,78" fill="none" stroke="#00D4FF" stroke-width="1.2" stroke-linecap="round" opacity="0.55"/>
+    </svg>
+    <div class="anatomy-list">
+      <div class="anatomy-item">
+        <div class="anat-label">Sentinel Hexagon</div>
+        <div class="anat-desc">Six-sided shield represents structural protection and the six operational zones of Axiod's deployment across Northern Nigeria.</div>
+      </div>
+      <div class="anatomy-item">
+        <div class="anat-label">A-Form Antenna</div>
+        <div class="anat-desc">The angular letterform doubles as a transmission antenna—upward signal and autonomous intelligence broadcasting in one form.</div>
+      </div>
+      <div class="anatomy-item">
+        <div class="anat-label">Sensor Node</div>
+        <div class="anat-desc">Signal-blue apex dot is the AI sensor eye—the point of active awareness in any threat environment.</div>
+      </div>
+      <div class="anatomy-item">
+        <div class="anat-label">Radar Arcs</div>
+        <div class="anat-desc">Concentric scanning arcs depict active threat detection, live sensor sweep, and real-time intelligence gathering at range.</div>
+      </div>
+      <div class="anatomy-item">
+        <div class="anat-label">Circuit Corner Nodes</div>
+        <div class="anat-desc">Six corner dots mark the hexagon vertices as active circuit nodes, implying digital intelligence running the perimeter.</div>
+      </div>
+      <div class="anatomy-item">
+        <div class="anat-label">Clearance Space</div>
+        <div class="anat-desc">Minimum clearance = 1× icon height on all sides. Never crop, squeeze, rotate, recolor, or apply effects to the logo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ════ 02 — COLOR SYSTEM ════ -->
+<div id="color">
+<div class="bk-section alt-bg">
+  <div class="bk-section-inner">
+    <div class="section-label">02 — Color System</div>
+    <div class="color-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#050D1A"></div>
+        <div class="swatch-meta"><div class="swatch-name">Void</div><div class="swatch-hex">#050D1A</div><div class="swatch-use">Primary Background</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#091528"></div>
+        <div class="swatch-meta"><div class="swatch-name">Abyss</div><div class="swatch-hex">#091528</div><div class="swatch-use">Cards / Surfaces</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#132840"></div>
+        <div class="swatch-meta"><div class="swatch-name">Slate</div><div class="swatch-hex">#132840</div><div class="swatch-use">Borders / Hover</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#00D4FF"></div>
+        <div class="swatch-meta"><div class="swatch-name">Signal</div><div class="swatch-hex">#00D4FF</div><div class="swatch-use">Primary Accent</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#FF6B35"></div>
+        <div class="swatch-meta"><div class="swatch-name">Alert</div><div class="swatch-hex">#FF6B35</div><div class="swatch-use">Critical / Danger</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#2AE88B"></div>
+        <div class="swatch-meta"><div class="swatch-name">Clearance</div><div class="swatch-hex">#2AE88B</div><div class="swatch-use">Safe / Online</div></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#FFB020"></div>
+        <div class="swatch-meta"><div class="swatch-name">Caution</div><div class="swatch-hex">#FFB020</div><div class="swatch-use">Warning / Idle</div></div>
+      </div>
+    </div>
+
+    <div class="color-usage-grid">
+      <div class="cu-card">
+        <div class="cu-title"><span class="cu-dot" style="background:#00D4FF"></span>Signal Blue — Primary Accent</div>
+        <div class="cu-text">Used for interactive elements, active states, data highlights, the logo mark, and primary CTAs. Never used for body text or decorative only purposes. Always ensure 4.5:1 contrast on dark surfaces.</div>
+      </div>
+      <div class="cu-card">
+        <div class="cu-title"><span class="cu-dot" style="background:#FF6B35"></span>Alert Orange — Critical States</div>
+        <div class="cu-text">Reserved exclusively for high-urgency threat notifications, critical incident badges, and destructive action confirmations. Overuse dilutes its meaning in an operational context — use sparingly.</div>
+      </div>
+      <div class="cu-card">
+        <div class="cu-title"><span class="cu-dot" style="background:#2AE88B"></span>Clearance Green — Safe / Resolved</div>
+        <div class="cu-text">Confirms system health, successful operations, cleared incidents, and online device status. Paired with Void background for maximum visibility on the tactical map and device panel.</div>
+      </div>
+      <div class="cu-card">
+        <div class="cu-title"><span class="cu-dot" style="background:#FFB020"></span>Caution Amber — Warning States</div>
+        <div class="cu-text">Mid-tier threat level. Used for warning alerts, idle device states, and elevated risk indicators that require attention but are not immediately critical. Never use for primary actions.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════ 03 — TYPOGRAPHY ════ -->
+<div id="type">
+<section class="bk-section">
+  <div class="section-label">03 — Typography</div>
+  <div class="type-cols">
+    <div class="type-card">
+      <div class="type-font-label">Display & Headings — Syne</div>
+      <div class="type-display-xl">Aa</div>
+      <div class="type-meta">Syne ExtraBold · 52px · ls -0.025em · lh 1.04</div>
+
+      <div class="type-scale-row">
+        <div class="ts-sample" style="font-family:var(--ff-display);font-weight:800;font-size:40px;letter-spacing:-0.02em;line-height:1.05">Display 01</div>
+        <div class="ts-spec">Syne 800 · 40px · ls -0.02em</div>
+      </div>
+      <div class="type-scale-row">
+        <div class="ts-sample" style="font-family:var(--ff-display);font-weight:700;font-size:28px;line-height:1.15">Heading 01</div>
+        <div class="ts-spec">Syne 700 · 28px · ls 0</div>
+      </div>
+      <div class="type-scale-row">
+        <div class="ts-sample" style="font-family:var(--ff-display);font-weight:600;font-size:20px">Heading 02</div>
+        <div class="ts-spec">Syne 600 · 20px · ls 0</div>
+      </div>
+      <div class="type-scale-row">
+        <div class="ts-sample" style="font-family:var(--ff-display);font-weight:600;font-size:16px">Heading 03</div>
+        <div class="ts-spec">Syne 600 · 16px</div>
+      </div>
+      <div class="type-scale-row">
+        <div class="ts-sample" style="font-family:var(--ff-display);font-weight:500;font-size:13px">Label / Button</div>
+        <div class="ts-spec">Syne 500 · 13px · ls 0.05em</div>
+      </div>
+      <div class="charset">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 !@#$%&amp;/()—</div>
+    </div>
+
+    <div class="type-card">
+      <div class="type-font-label">Body — DM Sans</div>
+      <div class="type-body-block" style="margin-bottom:20px">
+        <p>Axiod Robotics deploys AI-powered autonomous systems that deliver real-time situational awareness to communities facing persistent security threats.</p>
+        <p>Our platform integrates drone intelligence, predictive risk modeling, and community-level alert infrastructure into a single, deployable SaaS solution built for the most demanding environments.</p>
+      </div>
+      <div class="type-scale-row">
+        <div class="ts-sample" style="font-size:16px;color:var(--text-muted)">Body Large — 16px · 1.75 lh</div>
+        <div class="ts-spec">DM Sans 400 · Major sections, hero copy</div>
+      </div>
+      <div class="type-scale-row">
+        <div class="ts-sample" style="font-size:14px;color:var(--text-muted)">Body Regular — 14px · 1.7 lh</div>
+        <div class="ts-spec">DM Sans 400 · Default body, feature descriptions</div>
+      </div>
+      <div class="type-scale-row">
+        <div class="ts-sample" style="font-size:12px;color:var(--text-muted)">Body Small — 12px · 1.65 lh</div>
+        <div class="ts-spec">DM Sans 400 · Card content, captions</div>
+      </div>
+
+      <div class="type-font-label" style="margin-top:22px">Data & Code — JetBrains Mono</div>
+      <div class="type-mono-block">THREAT_LEVEL: CRITICAL<br>ZONE: Zamfara-Northwest<br>TIMESTAMP: 2025-09-14T14:23:07Z<br>CONFIDENCE: 94.2%</div>
+      <div style="margin-top:10px">
+        <div class="ts-spec">JetBrains Mono — Used for: coordinates, timestamps, alert codes, system labels, hex values, status tags, and all dashboard data fields.</div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ════ 04 — ICONOGRAPHY ════ -->
+<div id="icons">
+<div class="bk-section alt-bg">
+  <div class="bk-section-inner">
+    <div class="section-label">04 — Iconography</div>
+    <div class="icon-grid">
+      <div class="icon-cell">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 3L5 7V15C5 21 10 26.5 16 29C22 26.5 27 21 27 15V7L16 3Z" stroke="#00D4FF" stroke-width="1.5" stroke-linejoin="round"/><path d="M11 16L14 19L21 12" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="icon-label">Shield</div>
+      </div>
+      <div class="icon-cell">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="11" stroke="#00D4FF" stroke-width="1.5"/><circle cx="16" cy="16" r="6" stroke="#00D4FF" stroke-width="1.5" opacity="0.6"/><circle cx="16" cy="16" r="2" fill="#00D4FF"/><line x1="16" y1="16" x2="22" y2="10" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round"/><circle cx="22" cy="10" r="1.5" fill="#FF6B35"/></svg>
+        <div class="icon-label">Radar</div>
+      </div>
+      <div class="icon-cell">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="13" y="13" width="6" height="6" rx="1" stroke="#00D4FF" stroke-width="1.5"/><line x1="13" y1="13" x2="8" y2="8" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round"/><line x1="19" y1="13" x2="24" y2="8" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round"/><line x1="13" y1="19" x2="8" y2="24" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round"/><line x1="19" y1="19" x2="24" y2="24" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="8" r="2.5" stroke="#00D4FF" stroke-width="1.2"/><circle cx="24" cy="8" r="2.5" stroke="#00D4FF" stroke-width="1.2"/><circle cx="8" cy="24" r="2.5" stroke="#00D4FF" stroke-width="1.2"/><circle cx="24" cy="24" r="2.5" stroke="#00D4FF" stroke-width="1.2"/></svg>
+        <div class="icon-label">Drone</div>
+      </div>
+      <div class="icon-cell">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4L28 26H4L16 4Z" stroke="#00D4FF" stroke-width="1.5" stroke-linejoin="round"/><line x1="16" y1="13" x2="16" y2="19" stroke="#00D4FF" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="22.5" r="1" fill="#00D4FF"/></svg>
+        <div class="icon-label">Alert</div>
+      </div>
+      <div class="icon-cell">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 22C8 18 12 14 16 14C20 14 24 18 24 22" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/><path d="M10.5 19.5C10.5 17 13 14.5 16 14.5C19 14.5 21.5 17 21.5 19.5" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/><path d="M13 17C13 15.3 14.3 14 16 14" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round"/><circle cx="16" cy="22" r="2" fill="#00D4FF"/></svg>
+        <div class="icon-label">Signal</div>
+      </div>
+      <div class="icon-cell">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 5C12.7 5 10 7.7 10 11C10 16 16 22 16 22S22 16 22 11C22 7.7 19.3 5 16 5Z" stroke="#00D4FF" stroke-width="1.5"/><circle cx="16" cy="11" r="2.5" stroke="#00D4FF" stroke-width="1.2"/><path d="M9 22L4 27H28L23 22" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/></svg>
+        <div class="icon-label">Zone Map</div>
+      </div>
+      <div class="icon-cell">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 26C9 26 6 23 6 20C6 18.5 6.5 17 7.5 16C7 15.2 6.5 14.2 6.5 13C6.5 10 9 8 12 8" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round"/><path d="M20 26C23 26 26 23 26 20C26 18.5 25.5 17 24.5 16C25 15.2 25.5 14.2 25.5 13C25.5 10 23 8 20 8" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round"/><line x1="12" y1="8" x2="20" y2="8" stroke="#00D4FF" stroke-width="1.5"/><line x1="12" y1="26" x2="20" y2="26" stroke="#00D4FF" stroke-width="1.5"/><line x1="16" y1="8" x2="16" y2="26" stroke="#00D4FF" stroke-width="1.2" stroke-dasharray="2 2" opacity="0.5"/><circle cx="16" cy="14" r="1.5" fill="#00D4FF"/><circle cx="16" cy="20" r="1.5" fill="#00D4FF"/></svg>
+        <div class="icon-label">AI Intel</div>
+      </div>
+      <div class="icon-cell">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="7" y="16" width="18" height="12" rx="2" stroke="#00D4FF" stroke-width="1.5"/><path d="M11 16V12C11 9.2 13.2 7 16 7C18.8 7 21 9.2 21 12V16" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round"/><circle cx="16" cy="21" r="2" fill="#00D4FF"/><line x1="16" y1="23" x2="16" y2="25" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/></svg>
+        <div class="icon-label">Secure</div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:22px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+      <div>
+        <div class="anat-label" style="margin-bottom:6px">Style Rules</div>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.65">Stroke-only, 1.2–1.8px weight. No fill except the sensor dot accent. Always use Signal Blue (#00D4FF) for icon color.</div>
+      </div>
+      <div>
+        <div class="anat-label" style="margin-bottom:6px">Grid System</div>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.65">All icons drawn on a 32×32 grid with 2px optical padding. Maintain consistent visual weight across the icon set.</div>
+      </div>
+      <div>
+        <div class="anat-label" style="margin-bottom:6px">Usage</div>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.65">Icons appear in nav, feature cards, and dashboard panels. Never resize below 16px. Provide 24px and 32px variants for different contexts.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════ 05 — BRAND VOICE ════ -->
+<div id="voice">
+<section class="bk-section">
+  <div class="section-label">05 — Brand Voice & Tone</div>
+  <div class="tone-grid">
+    <div class="tone-card">
+      <div class="tone-word">Intelligent</div>
+      <div class="tone-desc">Lead with insight, not jargon. Communicate the depth of the technology without overwhelming. Precision is credibility — every word earns its place.</div>
+    </div>
+    <div class="tone-card">
+      <div class="tone-word">Responsible</div>
+      <div class="tone-desc">Acknowledge the human stakes. Security is not abstract — people's safety depends on the platform working. Honor that weight in every sentence written.</div>
+    </div>
+    <div class="tone-card">
+      <div class="tone-word">Mission-Driven</div>
+      <div class="tone-desc">This isn't a product demo. It's a deployment briefing. Write as if the audience understands the cost of inaction in Zamfara or Bauchi — because they should.</div>
+    </div>
+    <div class="tone-card">
+      <div class="tone-word">Globally Competitive</div>
+      <div class="tone-desc">Axiod competes with the best defense-tech companies on Earth. The copy, design, and data should make that undeniable to anyone who enters the room.</div>
+    </div>
+  </div>
+
+  <div class="tone-do-dont">
+    <div class="tdd-card">
+      <div class="tdd-title do">✓ Write Like This</div>
+      <div class="tdd-item do">Armed movement detected. Zone Zamfara NW-3. Response triggered. AI confidence: 91%.</div>
+      <div class="tdd-item do">Axiod has reduced incident response time by 63% in Zamfara since deployment — 18 months of field data, not projections.</div>
+      <div class="tdd-item do">The platform is built for the realities of low-bandwidth environments, not ideal lab conditions.</div>
+      <div class="tdd-item do">This is a security problem with a technical solution. Here's exactly how it works.</div>
+    </div>
+    <div class="tdd-card">
+      <div class="tdd-title dont">✕ Avoid This</div>
+      <div class="tdd-item dont">Our revolutionary AI-powered solution is disrupting the security space with next-gen innovation!</div>
+      <div class="tdd-item dont">We leverage synergistic robotics ecosystems to deliver value-added security outcomes for stakeholders.</div>
+      <div class="tdd-item dont">Excited to announce our latest feature drop! 🚀🔥 #Startup #AI #Security</div>
+      <div class="tdd-item dont">Our cutting-edge platform could potentially maybe help with some security challenges in certain regions.</div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ════ 06 — UI SYSTEM ════ -->
+<div id="ui">
+<div class="bk-section alt-bg">
+  <div class="bk-section-inner">
+    <div class="section-label">06 — UI System &amp; Components</div>
+
+    <!-- Component Library -->
+    <div class="component-grid" style="margin-bottom:32px">
+      <div class="comp-card">
+        <div class="comp-title">Buttons</div>
+        <div class="btn-row">
+          <button class="btn-sm btn-primary-sm">Deploy Now</button>
+          <button class="btn-sm btn-ghost-sm">View Report</button>
+          <button class="btn-sm btn-danger-sm">Terminate</button>
+        </div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:8px">Primary: Signal fill. Ghost: border-hi border. Danger: Alert dim fill.</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-title">Status Tags</div>
+        <div class="tag-row">
+          <span class="tag tag-crit">Critical</span>
+          <span class="tag tag-warn">Warning</span>
+          <span class="tag tag-safe">Cleared</span>
+          <span class="tag tag-info">Monitoring</span>
+          <span class="tag tag-neutral">Idle</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:12px">JetBrains Mono · 9px · letter-spacing 0.12em · uppercase only</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-title">Form Inputs</div>
+        <div class="input-label">Search Zones</div>
+        <div class="input-demo focused">LGA Sector 7, Bauchi|</div>
+        <div class="input-label">Filter by Status</div>
+        <div class="input-demo">All incident types</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-title">Spacing Scale</div>
+        <div style="display:flex;align-items:flex-end;gap:8px;padding-top:4px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div style="width:4px;height:4px;background:var(--signal-dim);border:1px solid rgba(0,212,255,0.2)"></div>
+            <span style="font-family:var(--ff-mono);font-size:8px;color:var(--text-dim)">4</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div style="width:8px;height:8px;background:var(--signal-dim);border:1px solid rgba(0,212,255,0.2)"></div>
+            <span style="font-family:var(--ff-mono);font-size:8px;color:var(--text-dim)">8</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div style="width:12px;height:12px;background:var(--signal-dim);border:1px solid rgba(0,212,255,0.2)"></div>
+            <span style="font-family:var(--ff-mono);font-size:8px;color:var(--text-dim)">12</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div style="width:16px;height:16px;background:var(--signal-dim);border:1px solid rgba(0,212,255,0.2)"></div>
+            <span style="font-family:var(--ff-mono);font-size:8px;color:var(--text-dim)">16</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div style="width:24px;height:24px;background:var(--signal-dim);border:1px solid rgba(0,212,255,0.2)"></div>
+            <span style="font-family:var(--ff-mono);font-size:8px;color:var(--text-dim)">24</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div style="width:32px;height:32px;background:var(--signal-dim);border:1px solid rgba(0,212,255,0.2)"></div>
+            <span style="font-family:var(--ff-mono);font-size:8px;color:var(--text-dim)">32</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div style="width:48px;height:48px;background:var(--signal-dim);border:1px solid rgba(0,212,255,0.2)"></div>
+            <span style="font-family:var(--ff-mono);font-size:8px;color:var(--text-dim)">48</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div style="width:64px;height:64px;background:var(--signal-dim);border:1px solid rgba(0,212,255,0.2)"></div>
+            <span style="font-family:var(--ff-mono);font-size:8px;color:var(--text-dim)">64</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard Preview -->
+    <div class="section-label" style="margin-bottom:24px">Dashboard UI Preview</div>
+    <div class="db-preview">
+      <div class="db-preview-bar">
+        <div class="db-dot" style="background:#FF6B35"></div>
+        <div class="db-dot" style="background:#FFB020"></div>
+        <div class="db-dot" style="background:#2AE88B"></div>
+        <div class="db-bar-title">AXIOD · Sentinel Dashboard · Zone NW-4 · 09:14:37 UTC</div>
+      </div>
+
+      <!-- Stat row -->
+      <div class="db-stat-row" style="grid-column:1/-1">
+        <div class="db-stat"><div class="db-stat-lbl">Active Incidents</div><div class="db-stat-num" style="color:var(--alert)">12</div><div class="db-stat-delta up">↑ 4 since 06:00</div></div>
+        <div class="db-stat" style="border-left:1px solid var(--border)"><div class="db-stat-lbl">Drones Airborne</div><div class="db-stat-num" style="color:var(--signal)">18</div><div class="db-stat-delta dn">2 charging</div></div>
+        <div class="db-stat" style="border-left:1px solid var(--border)"><div class="db-stat-lbl">Zones Monitored</div><div class="db-stat-num">34</div><div class="db-stat-delta dn">All operational</div></div>
+        <div class="db-stat" style="border-left:1px solid var(--border)"><div class="db-stat-lbl">AI Alerts (24h)</div><div class="db-stat-num">247</div><div class="db-stat-delta up">↑ 18% vs yesterday</div></div>
+      </div>
+
+      <div class="db-preview-body">
+        <!-- Sidebar -->
+        <div class="db-preview-sidebar">
+          <div style="padding:10px 12px 16px;border-bottom:1px solid var(--border);margin-bottom:6px;display:flex;align-items:center;gap:8px">
+            <svg width="18" height="18" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><polygon points="60,8 104,32 104,88 60,112 16,88 16,32" fill="none" stroke="#00D4FF" stroke-width="2"/><path d="M44,92 L60,30 L76,92" fill="none" stroke="white" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"/><line x1="51.5" y1="71" x2="68.5" y2="71" stroke="white" stroke-width="4"/><circle cx="60" cy="30" r="5" fill="#00D4FF"/></svg>
+            <span style="font-family:var(--ff-display);font-weight:800;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:white">AXIOD</span>
+          </div>
+          <div class="pdb-nav-label">Monitoring</div>
+          <div class="pdb-nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>
+            Incident Map <span class="pdb-badge">3</span>
+          </div>
+          <div class="pdb-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L22 20H2L12 2Z"/></svg>
+            Alerts <span class="pdb-badge">9</span>
+          </div>
+          <div class="pdb-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="9" y="9" width="6" height="6" rx="1"/><line x1="9" y1="9" x2="5" y2="5"/><line x1="15" y1="9" x2="19" y2="5"/><line x1="9" y1="15" x2="5" y2="19"/><line x1="15" y1="15" x2="19" y2="19"/></svg>
+            Fleet <span class="pdb-badge g">23</span>
+          </div>
+          <div class="pdb-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            Risk Models
+          </div>
+          <div class="pdb-nav-label" style="margin-top:8px">Intelligence</div>
+          <div class="pdb-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M9 12a3 3 0 0 0 6 0"/></svg>
+            AI Insights
+          </div>
+          <div class="pdb-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+            Reports
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="db-preview-main">
+          <svg width="100%" height="100%" viewBox="0 0 580 280" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="pgrid" width="25" height="25" patternUnits="userSpaceOnUse">
+                <path d="M 25 0 L 0 0 0 25" fill="none" stroke="rgba(27,52,79,0.5)" stroke-width="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="580" height="280" fill="#060F1C"/>
+            <rect width="580" height="280" fill="url(#pgrid)"/>
+            <polygon points="80,50 190,38 265,75 245,155 165,170 75,130" fill="rgba(0,212,255,0.04)" stroke="rgba(0,212,255,0.28)" stroke-width="1.5"/>
+            <polygon points="280,58 400,44 468,85 448,168 345,182 268,145" fill="rgba(255,107,53,0.05)" stroke="rgba(255,107,53,0.32)" stroke-width="1.5"/>
+            <polygon points="400,36 505,22 555,65 545,140 458,155 378,118" fill="rgba(0,212,255,0.03)" stroke="rgba(0,212,255,0.18)" stroke-width="1"/>
+            <text x="170" y="108" font-family="JetBrains Mono,monospace" font-size="10" fill="rgba(0,212,255,0.65)" text-anchor="middle" font-weight="500">ZAMFARA</text>
+            <text x="365" y="122" font-family="JetBrains Mono,monospace" font-size="10" fill="rgba(255,107,53,0.8)" text-anchor="middle" font-weight="500">BAUCHI</text>
+            <text x="468" y="88" font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(0,212,255,0.4)" text-anchor="middle">ZONE-C</text>
+            <!-- Critical -->
+            <circle cx="360" cy="110" r="22" fill="rgba(255,107,53,0.1)"/>
+            <circle cx="360" cy="110" r="9" fill="rgba(255,107,53,0.15)" stroke="#FF6B35" stroke-width="1.8"/>
+            <circle cx="360" cy="110" r="3.5" fill="#FF6B35"/>
+            <text x="360" y="96" font-family="JetBrains Mono,monospace" font-size="7" fill="#FF6B35" text-anchor="middle">CRITICAL</text>
+            <!-- Warning -->
+            <circle cx="145" cy="100" r="8" fill="rgba(255,176,32,0.15)" stroke="#FFB020" stroke-width="1.5"/>
+            <circle cx="145" cy="100" r="3" fill="#FFB020"/>
+            <text x="145" y="87" font-family="JetBrains Mono,monospace" font-size="7" fill="#FFB020" text-anchor="middle">WARN</text>
+            <!-- Safe -->
+            <circle cx="430" cy="65" r="6" fill="rgba(42,232,139,0.12)" stroke="#2AE88B" stroke-width="1.5"/>
+            <circle cx="430" cy="65" r="2.5" fill="#2AE88B"/>
+            <!-- Drone path -->
+            <path d="M 145 100 Q 240 55 360 110" fill="none" stroke="rgba(0,212,255,0.28)" stroke-width="1" stroke-dasharray="5 4"/>
+            <polygon points="358,105 366,110 358,115" fill="#00D4FF" opacity="0.6"/>
+            <!-- Drones -->
+            <polygon points="252,62 256,72 252,70 248,72" fill="#00D4FF" opacity="0.7"/>
+            <!-- Info overlay -->
+            <rect x="10" y="10" width="130" height="36" rx="3" fill="rgba(9,21,40,0.92)" stroke="rgba(27,52,79,0.9)" stroke-width="1"/>
+            <text x="18" y="24" font-family="JetBrains Mono,monospace" font-size="8" fill="#00D4FF">11.8165°N, 9.5611°E</text>
+            <text x="18" y="38" font-family="JetBrains Mono,monospace" font-size="7" fill="rgba(95,126,158,0.8)">SENTINEL ACTIVE · 18 DRONES</text>
+            <!-- Scan line -->
+            <rect x="0" y="0" width="580" height="1" fill="rgba(0,212,255,0.12)" opacity="0.7">
+              <animateTransform attributeName="transform" type="translate" from="0 0" to="0 280" dur="5s" repeatCount="indefinite"/>
+            </rect>
+          </svg>
+        </div>
+
+        <!-- Right panel -->
+        <div class="db-preview-right">
+          <div class="pdb-panel-title">Live Alerts <span class="pdb-count">9</span></div>
+          <div class="ai-chip">
+            <div class="ai-chip-lbl">AI Insight</div>
+            <div class="ai-chip-txt">Pattern: 3/4 critical incidents this week in Bauchi Sector 7, 08:00–10:00 UTC. Recommend preemptive deployment 07:30 tomorrow.</div>
+          </div>
+          <div class="pdb-alert crit">
+            <div class="pdb-sev crit">● Critical</div>
+            <div class="pdb-msg">Armed movement — Drone-7 thermal. Group 8–12, moving NW.</div>
+            <div class="pdb-loc">📍 Bauchi · Sector 7 · 2m ago</div>
+          </div>
+          <div class="pdb-alert warn">
+            <div class="pdb-sev warn">◆ Warning</div>
+            <div class="pdb-msg">Perimeter breach risk elevated — Zone NW-3, Zamfara.</div>
+            <div class="pdb-loc">📍 Zamfara · NW-3 · 18m ago</div>
+          </div>
+          <div class="pdb-alert safe">
+            <div class="pdb-sev safe">✓ Resolved</div>
+            <div class="pdb-msg">Sector 4 all-clear. Stand-down confirmed by ground unit.</div>
+            <div class="pdb-loc">📍 Zamfara · Sector 4 · 2h ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ════ FOOTER ════ -->
+<footer class="bk-footer">
+  <div class="footer-logo">
+    <svg width="20" height="20" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><polygon points="60,8 104,32 104,88 60,112 16,88 16,32" fill="none" stroke="#00D4FF" stroke-width="2"/><path d="M44,92 L60,30 L76,92" fill="none" stroke="white" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"/><line x1="51.5" y1="71" x2="68.5" y2="71" stroke="white" stroke-width="4"/><circle cx="60" cy="30" r="5" fill="#00D4FF"/></svg>
+    Axiod Robotics
+  </div>
+  <div class="footer-meta">Brand Design System v1.0 · Confidential — Internal Use Only · © 2025 Axiod Robotics</div>
+  <div style="font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);letter-spacing:0.06em">Abuja, Nigeria</div>
+</footer>
+
+<script>
+function goto(id){
+  const el=document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+// Scrollspy
+const sections=['logo','color','type','icons','voice','ui'];
+window.addEventListener('scroll',()=>{
+  const scrollY=window.scrollY+80;
+  sections.forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el) return;
+    const top=el.offsetTop;
+    const bottom=top+el.offsetHeight;
+    const btn=document.querySelector(`.tb-link[onclick="goto('${id}')"]`);
+    if(btn){
+      if(scrollY>=top&&scrollY<bottom) btn.classList.add('active');
+      else btn.classList.remove('active');
+    }
+  });
+});
+</script>
+</body>
+</html>

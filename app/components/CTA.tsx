@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "@heroui/react";
-import { useModal } from "./ModalProvider";
+import { useRouter } from "next/navigation";
 import AnimatedSection from "./AnimatedSection";
 
 export default function CTA() {
-  const { openDemo } = useModal();
+  const router = useRouter();
   return (
     <section
       style={{
@@ -73,7 +73,7 @@ export default function CTA() {
           }}
         >
           <Button
-            onPress={openDemo}
+            onPress={() => router.push("/request-access?type=Investor+Deck")}
             style={{
               background: "var(--axiod-signal)",
               border: "none",
@@ -92,7 +92,7 @@ export default function CTA() {
           </Button>
           <Button
             variant="outline"
-            onPress={openDemo}
+            onPress={() => router.push("/request-access?type=Live+Platform+Demo")}
             style={{
               background: "none",
               border: "1px solid var(--axiod-border-hi)",

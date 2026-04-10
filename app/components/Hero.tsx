@@ -1,35 +1,13 @@
 "use client";
 
-import { Button, Chip } from "@heroui/react";
+import { Button } from "@heroui/react";
 import { motion } from "framer-motion";
-import { useModal } from "./ModalProvider";
-
-const alerts = [
-  {
-    color: "red" as const,
-    dot: "#FF6B35",
-    border: "#FF6B35",
-    text: "Armed movement detected — LGA Sector 7, Bauchi",
-    time: "2m ago",
-  },
-  {
-    color: "yellow" as const,
-    dot: "#FFB020",
-    border: "#FFB020",
-    text: "Perimeter breach risk elevated — Zone NW-3, Zamfara",
-    time: "11m ago",
-  },
-  {
-    color: "green" as const,
-    dot: "#2AE88B",
-    border: "#2AE88B",
-    text: "Drone-4 patrol complete — Route Alpha clear",
-    time: "24m ago",
-  },
-];
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import RotatingText from "./RotatingText";
 
 export default function Hero() {
-  const { openDemo } = useModal();
+  const router = useRouter();
   return (
     <section
       id="home"
@@ -88,7 +66,7 @@ export default function Hero() {
           width: "100%",
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-          gap: "72px",
+          gap: "120px",
           alignItems: "center",
           position: "relative",
           zIndex: 1,
@@ -96,6 +74,7 @@ export default function Hero() {
       >
         {/* Hero Text */}
         <motion.div
+          className="hero-text-col"
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -140,8 +119,8 @@ export default function Hero() {
           <h1
             style={{
               fontFamily: "var(--font-syne), sans-serif",
-              fontWeight: 800,
-              fontSize: "clamp(40px, 4.8vw, 62px)",
+              fontWeight: 700,
+              fontSize: "clamp(50px, 5.5vw, 62px)",
               lineHeight: 1.04,
               letterSpacing: "-0.025em",
               color: "white",
@@ -152,10 +131,19 @@ export default function Hero() {
             <br />
             Intelligence for
             <br />
-            <span style={{ color: "var(--axiod-signal)" }}>
-              Fragile Security
-            </span>
-            <br />
+            <RotatingText
+              texts={[ "Conflict", "Crisis", "High-Risk "]}
+              mainClassName="px-2 py-0.5 overflow-hidden justify-center rounded-md"
+              style={{ display: "inline-flex", background: "var(--axiod-signal)", color: "#050D1A" }}
+              staggerFrom="last"
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-120%" }}
+              staggerDuration={0.025}
+              splitLevelClassName="overflow-hidden pb-0.5"
+              transition={{ type: "spring", damping: 30, stiffness: 400 }}
+              rotationInterval={2500}
+            />{" "}
             Environments
           </h1>
 
@@ -174,7 +162,7 @@ export default function Hero() {
             Bauchi. Built for everywhere that matters.
           </p>
 
-          <div style={{ display: "flex", gap: "14px", flexWrap: "wrap" }}>
+          <div className="hero-buttons" style={{ display: "flex", gap: "14px", flexWrap: "wrap" }}>
             <Button
               onPress={() => {
                 document.getElementById("platform")?.scrollIntoView({ behavior: "smooth" });
@@ -197,7 +185,7 @@ export default function Hero() {
             </Button>
             <Button
               variant="outline"
-              onPress={openDemo}
+              onPress={() => router.push("/request-access")}
               style={{
                 background: "none",
                 border: "1px solid var(--axiod-border-hi)",
@@ -217,6 +205,7 @@ export default function Hero() {
           </div>
 
           <div
+            className="hero-scroll"
             style={{
               display: "flex",
               alignItems: "center",
@@ -240,268 +229,28 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Hero Visual — Sentinel Dashboard */}
+        {/* Hero Visual */}
         <motion.div
+          className="hidden md:block"
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          style={{ position: "relative" }}
         >
-          <div
+          <Image
+            src="/apphero.svg"
+            alt="Axiod platform preview"
+            width={580}
+            height={420}
             style={{
-              background: "var(--axiod-surface)",
-              border: "1px solid var(--axiod-border-hi)",
+              width: "100%",
+              height: "auto",
               borderRadius: "12px",
-              overflow: "hidden",
               boxShadow:
                 "0 0 100px rgba(0,212,255,0.07), 0 48px 100px rgba(0,0,0,0.55)",
             }}
-          >
-            {/* Frame bar */}
-            <div
-              style={{
-                background: "var(--axiod-surface-2)",
-                borderBottom: "1px solid var(--axiod-border)",
-                padding: "11px 18px",
-                display: "flex",
-                alignItems: "center",
-                gap: "7px",
-              }}
-            >
-              <span
-                style={{ width: 8, height: 8, borderRadius: "50%", background: "#FF6B35", display: "inline-block" }}
-              />
-              <span
-                style={{ width: 8, height: 8, borderRadius: "50%", background: "#FFB020", display: "inline-block" }}
-              />
-              <span
-                style={{ width: 8, height: 8, borderRadius: "50%", background: "#2AE88B", display: "inline-block" }}
-              />
-              <span
-                style={{
-                  fontFamily: "var(--font-jetbrains), monospace",
-                  fontSize: "11px",
-                  color: "var(--axiod-text-muted)",
-                  marginLeft: "8px",
-                  letterSpacing: "0.06em",
-                }}
-              >
-                AXIOD · Sentinel Dashboard · Zone NW-4
-              </span>
-            </div>
-
-            {/* SVG Map */}
-            <div style={{ background: "#060F1C", overflow: "hidden" }}>
-              <svg
-                width="100%"
-                height="210"
-                viewBox="0 0 520 210"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <defs>
-                  <pattern
-                    id="hgrid"
-                    width="26"
-                    height="26"
-                    patternUnits="userSpaceOnUse"
-                  >
-                    <path
-                      d="M 26 0 L 0 0 0 26"
-                      fill="none"
-                      stroke="rgba(27,52,79,0.55)"
-                      strokeWidth="0.5"
-                    />
-                  </pattern>
-                </defs>
-                <rect width="520" height="210" fill="#060F1C" />
-                <rect width="520" height="210" fill="url(#hgrid)" />
-                <polygon
-                  points="70,40 165,28 225,60 205,130 125,142 65,98"
-                  fill="rgba(0,212,255,0.04)"
-                  stroke="rgba(0,212,255,0.28)"
-                  strokeWidth="1.2"
-                />
-                <polygon
-                  points="235,48 330,36 390,72 368,148 272,158 218,120"
-                  fill="rgba(255,107,53,0.05)"
-                  stroke="rgba(255,107,53,0.3)"
-                  strokeWidth="1.2"
-                />
-                <polygon
-                  points="320,28 412,16 460,55 450,118 368,130 302,92"
-                  fill="rgba(0,212,255,0.03)"
-                  stroke="rgba(0,212,255,0.16)"
-                  strokeWidth="1"
-                />
-                <text
-                  x="140"
-                  y="90"
-                  fontFamily="monospace"
-                  fontSize="9"
-                  fill="rgba(0,212,255,0.65)"
-                  textAnchor="middle"
-                >
-                  ZAMFARA
-                </text>
-                <text
-                  x="300"
-                  y="105"
-                  fontFamily="monospace"
-                  fontSize="9"
-                  fill="rgba(255,107,53,0.8)"
-                  textAnchor="middle"
-                >
-                  BAUCHI
-                </text>
-                <text
-                  x="380"
-                  y="72"
-                  fontFamily="monospace"
-                  fontSize="8"
-                  fill="rgba(0,212,255,0.4)"
-                  textAnchor="middle"
-                >
-                  ZONE-C
-                </text>
-                <circle
-                  cx="140"
-                  cy="78"
-                  r="5.5"
-                  fill="rgba(42,232,139,0.14)"
-                  stroke="#2AE88B"
-                  strokeWidth="1.5"
-                />
-                <circle
-                  cx="140"
-                  cy="78"
-                  r="11"
-                  fill="none"
-                  stroke="rgba(42,232,139,0.25)"
-                  strokeWidth="1"
-                  strokeDasharray="2 2"
-                />
-                <circle
-                  cx="285"
-                  cy="98"
-                  r="6.5"
-                  fill="rgba(255,107,53,0.18)"
-                  stroke="#FF6B35"
-                  strokeWidth="1.5"
-                />
-                <circle
-                  cx="285"
-                  cy="98"
-                  r="14"
-                  fill="none"
-                  stroke="rgba(255,107,53,0.28)"
-                  strokeWidth="1"
-                />
-                <circle
-                  cx="338"
-                  cy="68"
-                  r="4.5"
-                  fill="rgba(255,176,32,0.18)"
-                  stroke="#FFB020"
-                  strokeWidth="1.5"
-                />
-                <circle
-                  cx="108"
-                  cy="105"
-                  r="3"
-                  fill="rgba(0,212,255,0.3)"
-                  stroke="#00D4FF"
-                  strokeWidth="1"
-                />
-                <circle
-                  cx="400"
-                  cy="52"
-                  r="3"
-                  fill="rgba(0,212,255,0.3)"
-                  stroke="#00D4FF"
-                  strokeWidth="1"
-                />
-                <path
-                  d="M 140 78 Q 205 38 285 98"
-                  fill="none"
-                  stroke="rgba(0,212,255,0.25)"
-                  strokeWidth="1"
-                  strokeDasharray="4 3"
-                />
-                <polygon
-                  points="283,93 291,98 283,103"
-                  fill="#00D4FF"
-                  opacity="0.55"
-                />
-                <line
-                  x1="0"
-                  y1="108"
-                  x2="520"
-                  y2="108"
-                  stroke="rgba(0,212,255,0.06)"
-                  strokeWidth="0.5"
-                />
-                <text
-                  x="10"
-                  y="200"
-                  fontFamily="monospace"
-                  fontSize="7"
-                  fill="rgba(95,126,158,0.7)"
-                >
-                  11.8165°N, 9.5611°E · AXIOD-SENTINEL
-                </text>
-              </svg>
-            </div>
-
-            {/* Alerts */}
-            <div style={{ padding: "14px" }}>
-              {alerts.map((alert, i) => (
-                <div
-                  key={i}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "11px",
-                    padding: "9px 12px",
-                    background: "var(--axiod-surface-2)",
-                    borderRadius: "5px",
-                    marginBottom: i < alerts.length - 1 ? "7px" : 0,
-                    borderLeft: `2px solid ${alert.dot}`,
-                  }}
-                >
-                  <span
-                    style={{
-                      width: 7,
-                      height: 7,
-                      borderRadius: "50%",
-                      background: alert.dot,
-                      flexShrink: 0,
-                      display: "inline-block",
-                    }}
-                  />
-                  <span
-                    style={{
-                      fontFamily: "var(--font-jetbrains), monospace",
-                      fontSize: "11px",
-                      color: "var(--axiod-text)",
-                      flex: 1,
-                      lineHeight: 1.4,
-                    }}
-                  >
-                    {alert.text}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-jetbrains), monospace",
-                      fontSize: "10px",
-                      color: "var(--axiod-text-muted)",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {alert.time}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
+            priority
+          />
         </motion.div>
       </div>
     </section>

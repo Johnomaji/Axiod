@@ -41,6 +41,34 @@ body {
   animation: blink 2s infinite;
 }
 
+/* ── Hero: center-align text column on mobile ── */
+@media (max-width: 767px) {
+  .hero-text-col {
+    text-align: center;
+    align-items: center;
+  }
+  .hero-buttons,
+  .hero-scroll {
+    justify-content: center;
+  }
+}
+
+/* ── Research credential rows: stack on mobile ── */
+@media (max-width: 560px) {
+  .credential-row {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .credential-stat {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .credential-stat-number {
+    font-size: 36px !important;
+  }
+}
+
 /* ── Scrollbar ── */
 ::-webkit-scrollbar {
   width: 6px;

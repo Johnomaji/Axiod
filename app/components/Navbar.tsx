@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@heroui/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import AxiodLogo from "./AxiodLogo";
-import { useModal } from "./ModalProvider";
 
 const navLinks = [
   { label: "Platform", href: "#platform" },
@@ -13,7 +14,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const { openDemo } = useModal();
+  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -129,7 +130,7 @@ export default function Navbar() {
         <Button
           variant="outline"
           size="sm"
-          onPress={openDemo}
+          onPress={() => router.push("/request-access")}
           style={{
             background: "none",
             border: "1px solid var(--axiod-border-hi)",
@@ -145,6 +146,7 @@ export default function Navbar() {
         </Button>
         <Button
           size="sm"
+          onPress={() => router.push("/request-access?type=Deployment+Brief")}
           style={{
             background: "var(--axiod-signal)",
             border: "none",
@@ -217,6 +219,7 @@ export default function Navbar() {
             <Button
               variant="outline"
               size="sm"
+              onPress={() => { router.push("/request-access"); setMenuOpen(false); }}
               style={{
                 flex: 1,
                 background: "none",
@@ -232,6 +235,7 @@ export default function Navbar() {
             </Button>
             <Button
               size="sm"
+              onPress={() => { router.push("/request-access?type=Deployment+Brief"); setMenuOpen(false); }}
               style={{
                 flex: 1,
                 background: "var(--axiod-signal)",

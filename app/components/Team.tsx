@@ -1,145 +1,198 @@
 "use client";
 
 import { useState } from "react";
-import { Card } from "@heroui/react";
+import Image from "next/image";
 import AnimatedSection from "./AnimatedSection";
 
 const team = [
   {
-    initials: "VO",
     name: "Vivian Ogah",
+    photo: "vivian",
     role: "Founder & CEO",
     bio: "Leads product vision and strategic direction. Security technologist with deep roots in Nigerian conflict research and community resilience programs.",
   },
   {
-    initials: "MO",
     name: "Martins Ogunlesi",
+    photo: "martins",
     role: "CTO",
     bio: "Leads engineering and AI systems architecture. Expert in autonomous systems and edge-deployed machine learning models in low-resource environments.",
   },
   {
-    initials: "JO",
     name: "Job Onum",
+    photo: "job",
     role: "Head of Operations",
     bio: "Oversees field deployment and community integration. Former logistician with deep operational experience in humanitarian and crisis-zone settings.",
   },
   {
-    initials: "GC",
     name: "Godwin Chritaina",
+    photo: "godwin",
     role: "Head of Research",
     bio: "Leads threat modeling and AI training pipeline development. Published researcher in regional security studies and conflict-pattern analytics.",
   },
   {
-    initials: "DO",
     name: "Domnic Ochiwu",
+    photo: "dominic",
     role: "Head of Partnerships",
     bio: "Drives government, NGO, and institutional relationships. Manages regulatory approvals, framework agreements, and cross-border compliance strategy.",
   },
 ];
 
-function TeamCard({ member }: { member: (typeof team)[0] }) {
-  const [hovered, setHovered] = useState(false);
+function TeamCard({ member, index }: { member: (typeof team)[0]; index: number }) {
+  const [active, setActive] = useState(false);
 
   return (
-    <Card.Root
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+    <div
+      onMouseEnter={() => setActive(true)}
+      onMouseLeave={() => setActive(false)}
+      onClick={() => setActive((v) => !v)}
       style={{
-        background: "var(--axiod-surface)",
-        border: `1px solid ${hovered ? "var(--axiod-border-hi)" : "var(--axiod-border)"}`,
-        borderRadius: "12px",
+        position: "relative",
+        borderRadius: "14px",
         overflow: "hidden",
-        transform: hovered ? "translateY(-4px)" : "translateY(0)",
-        boxShadow: hovered ? "0 16px 40px rgba(0,0,0,0.35)" : "none",
-        transition: "border-color 0.3s, transform 0.3s, box-shadow 0.3s",
+        height: "420px",
+        cursor: "pointer",
+        border: `1px solid ${active ? "rgba(0,212,255,0.4)" : "rgba(0,212,255,0.1)"}`,
+        boxShadow: active
+          ? "0 0 40px rgba(0,212,255,0.12), 0 32px 64px rgba(0,0,0,0.55)"
+          : "0 8px 32px rgba(0,0,0,0.35)",
+        transition: "border-color 0.4s, box-shadow 0.4s",
       }}
     >
-      {/* Avatar */}
+      {/* Photo */}
       <div
         style={{
-          height: "130px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          position: "relative",
-          overflow: "hidden",
+          position: "absolute",
+          inset: 0,
+          transform: active ? "scale(1.06)" : "scale(1)",
+          transition: "transform 0.6s cubic-bezier(0.22,1,0.36,1)",
         }}
       >
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(140deg,#0A1828 0%,#060F1E 100%)",
-          }}
+        <Image
+          src={`/${member.photo}.jpg`}
+          alt={member.name}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          style={{ objectFit: "cover", objectPosition: "top center" }}
+          priority={index < 3}
         />
-        <div
-          style={{
-            position: "absolute",
-            inset: "22px",
-            borderRadius: "50%",
-            border: "1px solid rgba(0,212,255,0.12)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            inset: "36px",
-            borderRadius: "50%",
-            border: "1px solid rgba(0,212,255,0.06)",
-          }}
-        />
+      </div>
+
+      {/* Base gradient — always visible */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "linear-gradient(to bottom, transparent 25%, rgba(6,13,26,0.6) 55%, rgba(6,13,26,0.97) 100%)",
+        }}
+      />
+
+      {/* Active overlay */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "rgba(0,212,255,0.04)",
+          opacity: active ? 1 : 0,
+          transition: "opacity 0.4s",
+        }}
+      />
+
+      {/* Top cyan accent line */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "2px",
+          background:
+            "linear-gradient(90deg, transparent 0%, var(--axiod-signal) 50%, transparent 100%)",
+          opacity: active ? 1 : 0,
+          transition: "opacity 0.4s",
+        }}
+      />
+
+      {/* Index number — top right */}
+      <div
+        style={{
+          position: "absolute",
+          top: "18px",
+          right: "18px",
+          fontFamily: "var(--font-jetbrains), monospace",
+          fontSize: "10px",
+          color: "rgba(0,212,255,0.35)",
+          letterSpacing: "0.1em",
+        }}
+      >
+        {String(index + 1).padStart(2, "0")}
+      </div>
+
+      {/* Bottom content */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          padding: "24px",
+        }}
+      >
         <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "6px",
+            fontFamily: "var(--font-jetbrains), monospace",
+            fontSize: "9px",
+            letterSpacing: "0.16em",
+            color: "var(--axiod-signal)",
+            textTransform: "uppercase",
+            marginBottom: "8px",
+          }}
+        >
+          <span
+            style={{
+              width: "14px",
+              height: "1px",
+              background: "var(--axiod-signal)",
+              display: "inline-block",
+              flexShrink: 0,
+            }}
+          />
+          {member.role}
+        </span>
+
+        <div
           style={{
             fontFamily: "var(--font-syne), sans-serif",
             fontWeight: 800,
-            fontSize: "38px",
-            color: "var(--axiod-signal)",
-            position: "relative",
-            zIndex: 1,
-            opacity: 0.75,
-            letterSpacing: "-0.01em",
-          }}
-        >
-          {member.initials}
-        </span>
-      </div>
-
-      <Card.Content style={{ padding: "20px" }}>
-        <div
-          style={{
-            fontFamily: "var(--font-syne), sans-serif",
-            fontWeight: 700,
-            fontSize: "14px",
+            fontSize: "18px",
             color: "white",
-            marginBottom: "4px",
+            letterSpacing: "-0.01em",
+            marginBottom: active ? "12px" : "0",
+            transition: "margin-bottom 0.35s ease",
           }}
         >
           {member.name}
         </div>
-        <span
+
+        {/* Bio — reveals on hover/tap */}
+        <div
           style={{
-            display: "block",
-            fontFamily: "var(--font-jetbrains), monospace",
-            fontSize: "9px",
-            letterSpacing: "0.14em",
-            color: "var(--axiod-signal)",
-            textTransform: "uppercase",
-            marginBottom: "10px",
-          }}
-        >
-          {member.role}
-        </span>
-        <p
-          style={{
-            fontSize: "12px",
-            color: "var(--axiod-text-muted)",
-            lineHeight: 1.65,
+            fontSize: "12.5px",
+            color: "rgba(170,195,220,0.88)",
+            lineHeight: 1.68,
+            maxHeight: active ? "150px" : "0",
+            opacity: active ? 1 : 0,
+            overflow: "hidden",
+            transition: "max-height 0.45s ease, opacity 0.35s ease",
           }}
         >
           {member.bio}
-        </p>
-      </Card.Content>
-    </Card.Root>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -150,6 +203,7 @@ export default function Team() {
       style={{ padding: "104px clamp(20px, 4vw, 56px)" }}
     >
       <div style={{ maxWidth: "1140px", margin: "0 auto" }}>
+        {/* Header */}
         <div style={{ marginBottom: "64px" }}>
           <div
             style={{
@@ -204,19 +258,35 @@ export default function Team() {
           </p>
         </div>
 
+        {/* Grid */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-            gap: "18px",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(280px, 100%), 1fr))",
+            gap: "20px",
           }}
         >
           {team.map((member, i) => (
-            <AnimatedSection key={i} delay={i * 0.1}>
-              <TeamCard member={member} />
+            <AnimatedSection key={i} delay={i * 0.08}>
+              <TeamCard member={member} index={i} />
             </AnimatedSection>
           ))}
         </div>
+
+        {/* Tap hint for mobile */}
+        <p
+          style={{
+            marginTop: "24px",
+            fontFamily: "var(--font-jetbrains), monospace",
+            fontSize: "10px",
+            letterSpacing: "0.12em",
+            color: "var(--axiod-text-dim)",
+            textAlign: "center",
+            textTransform: "uppercase",
+          }}
+        >
+          Tap a card to learn more
+        </p>
       </div>
     </section>
   );

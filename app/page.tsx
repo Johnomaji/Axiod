@@ -7,12 +7,11 @@ import Team from "./components/Team";
 import Research from "./components/Research";
 import CTA from "./components/CTA";
 import Footer from "./components/Footer";
-import ModalProvider from "./components/ModalProvider";
 import ScrollToTop from "./components/ScrollToTop";
 
 export default function Home() {
   return (
-    <ModalProvider>
+    <>
       <Navbar />
       <main>
         <Hero />
@@ -25,6 +24,6 @@ export default function Home() {
       </main>
       <Footer />
       <ScrollToTop />
-    </ModalProvider>
+    </>
   );
 }

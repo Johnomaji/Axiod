@@ -1,18 +1,17 @@
 import type { Metadata } from "next";
-import { Syne, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const syne = Syne({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-syne",
   display: "swap",
 });
 
-const dmSans = DM_Sans({
+const outfit = Outfit({
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  style: ["normal", "italic"],
+  weight: ["300", "400", "500", "600"],
   variable: "--font-dm-sans",
   display: "swap",
 });
@@ -52,7 +51,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${syne.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
+      className={`${spaceGrotesk.variable} ${outfit.variable} ${jetbrainsMono.variable}`}
     >
       <body style={{ minHeight: "100vh", fontFamily: "var(--font-dm-sans), sans-serif" }}>
         {children}

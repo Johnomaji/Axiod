@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Card } from "@heroui/react";
 import AnimatedSection from "./AnimatedSection";
 
 const features = [
   {
     icon: (
-      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
         <circle cx="16" cy="16" r="11" stroke="#00D4FF" strokeWidth="1.5" />
         <circle cx="16" cy="16" r="5.5" stroke="#00D4FF" strokeWidth="1.5" opacity="0.55" />
         <circle cx="16" cy="16" r="2" fill="#00D4FF" />
@@ -20,7 +19,7 @@ const features = [
   },
   {
     icon: (
-      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
         <rect x="13" y="13" width="6" height="6" rx="1" stroke="#00D4FF" strokeWidth="1.5" />
         <line x1="13" y1="13" x2="8" y2="8" stroke="#00D4FF" strokeWidth="1.5" strokeLinecap="round" />
         <line x1="19" y1="13" x2="24" y2="8" stroke="#00D4FF" strokeWidth="1.5" strokeLinecap="round" />
@@ -37,7 +36,7 @@ const features = [
   },
   {
     icon: (
-      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
         <path d="M16 4L28 26H4L16 4Z" stroke="#00D4FF" strokeWidth="1.5" strokeLinejoin="round" />
         <line x1="16" y1="13" x2="16" y2="19" stroke="#00D4FF" strokeWidth="2" strokeLinecap="round" />
         <circle cx="16" cy="22.5" r="1" fill="#00D4FF" />
@@ -48,7 +47,7 @@ const features = [
   },
   {
     icon: (
-      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
         <path d="M4 22V8L12 12L16 6L20 12L28 8V22L20 18L16 24L12 18L4 22Z" stroke="#00D4FF" strokeWidth="1.5" strokeLinejoin="round" />
       </svg>
     ),
@@ -57,7 +56,7 @@ const features = [
   },
   {
     icon: (
-      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
         <path d="M8 22C8 18 12 14 16 14C20 14 24 18 24 22" stroke="#00D4FF" strokeWidth="1.5" strokeLinecap="round" opacity="0.4" />
         <path d="M10.5 19.5C10.5 17 13 14.5 16 14.5C19 14.5 21.5 17 21.5 19.5" stroke="#00D4FF" strokeWidth="1.5" strokeLinecap="round" opacity="0.7" />
         <path d="M13 17C13 15.3 14.3 14 16 14" stroke="#00D4FF" strokeWidth="1.5" strokeLinecap="round" />
@@ -69,7 +68,7 @@ const features = [
   },
   {
     icon: (
-      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
         <rect x="6" y="8" width="20" height="16" rx="2" stroke="#00D4FF" strokeWidth="1.5" />
         <line x1="6" y1="13" x2="26" y2="13" stroke="#00D4FF" strokeWidth="1" opacity="0.5" />
         <circle cx="10" cy="10.5" r="1" fill="#00D4FF" opacity="0.7" />
@@ -82,76 +81,126 @@ const features = [
   },
 ];
 
-function FeatureCard({ feature }: { feature: (typeof features)[0] }) {
+function FeatureCard({
+  feature,
+  index,
+}: {
+  feature: (typeof features)[0];
+  index: number;
+}) {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <Card.Root
+    <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: hovered ? "var(--axiod-surface)" : "var(--axiod-bg)",
-        border: "none",
-        borderRadius: 0,
-        padding: "40px",
-        transition: "background 0.3s",
+        background: hovered
+          ? "linear-gradient(160deg, var(--axiod-surface-2) 0%, var(--axiod-surface) 100%)"
+          : "var(--axiod-surface)",
+        border: `1px solid ${hovered ? "rgba(0,212,255,0.28)" : "var(--axiod-border)"}`,
+        borderRadius: "12px",
+        padding: "32px 28px",
         position: "relative",
         overflow: "hidden",
         cursor: "default",
+        transform: hovered ? "translateY(-3px)" : "translateY(0)",
+        boxShadow: hovered
+          ? "0 0 32px rgba(0,212,255,0.07), 0 16px 40px rgba(0,0,0,0.35)"
+          : "0 2px 12px rgba(0,0,0,0.2)",
+        transition: "border-color 0.3s, transform 0.3s, box-shadow 0.3s, background 0.3s",
       }}
     >
-      {/* Bottom glow line on hover */}
+      {/* Top accent line */}
       <div
         style={{
           position: "absolute",
-          bottom: 0,
+          top: 0,
           left: 0,
           right: 0,
           height: "1px",
           background:
-            "linear-gradient(90deg,transparent,rgba(0,212,255,0.15),transparent)",
+            "linear-gradient(90deg, transparent, rgba(0,212,255,0.5), transparent)",
           opacity: hovered ? 1 : 0,
           transition: "opacity 0.3s",
         }}
       />
-      <Card.Content style={{ padding: 0 }}>
+
+      {/* Header row: icon + number */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "flex-start",
+          justifyContent: "space-between",
+          marginBottom: "24px",
+        }}
+      >
         <div
           style={{
-            width: "46px",
-            height: "46px",
-            background: "var(--axiod-signal-dim)",
-            border: "1px solid rgba(0,212,255,0.18)",
-            borderRadius: "9px",
+            width: "44px",
+            height: "44px",
+            background: hovered
+              ? "rgba(0,212,255,0.14)"
+              : "var(--axiod-signal-dim)",
+            border: `1px solid ${hovered ? "rgba(0,212,255,0.35)" : "rgba(0,212,255,0.15)"}`,
+            borderRadius: "10px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            marginBottom: "22px",
+            transition: "background 0.3s, border-color 0.3s",
+            flexShrink: 0,
           }}
         >
           {feature.icon}
         </div>
-        <h3
+        <span
           style={{
-            fontFamily: "var(--font-syne), sans-serif",
-            fontWeight: 700,
-            fontSize: "17px",
-            color: "white",
-            marginBottom: "10px",
+            fontFamily: "var(--font-jetbrains), monospace",
+            fontSize: "11px",
+            letterSpacing: "0.1em",
+            color: hovered ? "rgba(0,212,255,0.4)" : "var(--axiod-text-dim)",
+            transition: "color 0.3s",
           }}
         >
-          {feature.title}
-        </h3>
-        <p
-          style={{
-            fontSize: "14px",
-            color: "var(--axiod-text-muted)",
-            lineHeight: 1.72,
-          }}
-        >
-          {feature.desc}
-        </p>
-      </Card.Content>
-    </Card.Root>
+          {String(index + 1).padStart(2, "0")}
+        </span>
+      </div>
+
+      {/* Divider */}
+      <div
+        style={{
+          height: "1px",
+          background: hovered
+            ? "rgba(0,212,255,0.12)"
+            : "var(--axiod-border)",
+          marginBottom: "20px",
+          transition: "background 0.3s",
+        }}
+      />
+
+      <h3
+        style={{
+          fontFamily: "var(--font-syne), sans-serif",
+          fontWeight: 700,
+          fontSize: "16px",
+          color: hovered ? "white" : "var(--axiod-text)",
+          marginBottom: "10px",
+          letterSpacing: "-0.01em",
+          transition: "color 0.2s",
+        }}
+      >
+        {feature.title}
+      </h3>
+      <p
+        style={{
+          fontSize: "13.5px",
+          color: "var(--axiod-text-muted)",
+          lineHeight: 1.72,
+        }}
+      >
+        {feature.desc}
+      </p>
+    </div>
   );
 }
 
@@ -159,21 +208,26 @@ export default function Features() {
   return (
     <section
       id="platform"
-      style={{ padding: "104px clamp(20px, 4vw, 56px)" }}
+      style={{
+        padding: "104px clamp(20px, 4vw, 56px)",
+        background:
+          "linear-gradient(180deg, var(--axiod-bg) 0%, #080F1C 100%)",
+      }}
     >
       <div style={{ maxWidth: "1140px", margin: "0 auto" }}>
-        <div style={{ marginBottom: "64px" }}>
+        {/* Header */}
+        <div style={{ marginBottom: "64px", maxWidth: "600px" }}>
           <div
             style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "10px",
               fontFamily: "var(--font-jetbrains), monospace",
               fontSize: "10px",
               letterSpacing: "0.22em",
               color: "var(--axiod-signal)",
               textTransform: "uppercase",
-              marginBottom: "18px",
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
+              marginBottom: "20px",
             }}
           >
             <span
@@ -190,23 +244,24 @@ export default function Features() {
           <h2
             style={{
               fontFamily: "var(--font-syne), sans-serif",
-              fontWeight: 800,
-              fontSize: "clamp(30px, 3.8vw, 48px)",
+              fontWeight: 700,
+              fontSize: "clamp(28px, 3.8vw, 48px)",
               lineHeight: 1.09,
               letterSpacing: "-0.02em",
               color: "white",
-              marginBottom: "14px",
+              marginBottom: "16px",
             }}
           >
             Intelligence that works
             <br />
-            where it&apos;s needed most
+            <span style={{ color: "var(--axiod-signal)" }}>
+              where it&apos;s needed most
+            </span>
           </h2>
           <p
             style={{
               fontSize: "16px",
               color: "var(--axiod-text-muted)",
-              maxWidth: "540px",
               lineHeight: 1.78,
             }}
           >
@@ -215,20 +270,17 @@ export default function Features() {
           </p>
         </div>
 
-        {/* Features Grid */}
+        {/* Grid */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: "1px",
-            background: "var(--axiod-border)",
-            borderRadius: "2px",
-            overflow: "hidden",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(300px, 100%), 1fr))",
+            gap: "16px",
           }}
         >
           {features.map((feat, i) => (
-            <AnimatedSection key={i} delay={i * 0.08}>
-              <FeatureCard feature={feat} />
+            <AnimatedSection key={i} delay={i * 0.07}>
+              <FeatureCard feature={feat} index={i} />
             </AnimatedSection>
           ))}
         </div>

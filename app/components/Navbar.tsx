@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@heroui/react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import AxiodLogo from "./AxiodLogo";
 
 const navLinks = [
@@ -15,8 +14,12 @@ const navLinks = [
 
 export default function Navbar() {
   const router = useRouter();
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const resolveHref = (anchor: string) =>
+    pathname === "/" ? anchor : `/${anchor}`;
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 30);
@@ -48,7 +51,7 @@ export default function Navbar() {
     >
       {/* Logo */}
       <a
-        href="#"
+        href="/"
         style={{
           display: "flex",
           alignItems: "center",
@@ -97,7 +100,7 @@ export default function Navbar() {
         {navLinks.map((link) => (
           <a
             key={link.href}
-            href={link.href}
+            href={resolveHref(link.href)}
             style={{
               textDecoration: "none",
               fontFamily: "var(--font-syne), sans-serif",
@@ -200,7 +203,7 @@ export default function Navbar() {
           {navLinks.map((link) => (
             <a
               key={link.href}
-              href={link.href}
+              href={resolveHref(link.href)}
               onClick={() => setMenuOpen(false)}
               style={{
                 textDecoration: "none",

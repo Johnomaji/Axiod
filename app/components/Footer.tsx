@@ -2,7 +2,14 @@
 
 import AxiodLogo from "./AxiodLogo";
 
-const links = ["Platform", "Deployments", "Research", "Team", "Privacy", "Terms"];
+const sectionLinks = [
+  { label: "Platform", href: "/#platform" },
+  { label: "Deployments", href: "/#deployments" },
+  { label: "Research", href: "/#research" },
+  { label: "Team", href: "/#team" },
+  { label: "Privacy", href: "/privacy" },
+  { label: "Terms", href: "/terms" },
+];
 
 export default function Footer() {
   return (
@@ -25,7 +32,7 @@ export default function Footer() {
         }}
       >
         <a
-          href="#"
+          href="/"
           style={{
             display: "flex",
             alignItems: "center",
@@ -49,10 +56,10 @@ export default function Footer() {
         </a>
 
         <div style={{ display: "flex", gap: "24px", flexWrap: "wrap" }}>
-          {links.map((link) => (
+          {sectionLinks.map((link) => (
             <a
-              key={link}
-              href="#"
+              key={link.href}
+              href={link.href}
               style={{
                 fontFamily: "var(--font-jetbrains), monospace",
                 fontSize: "11px",
@@ -70,7 +77,7 @@ export default function Footer() {
                   "var(--axiod-text-dim)")
               }
             >
-              {link}
+              {link.label}
             </a>
           ))}
         </div>

@@ -53,7 +53,7 @@ export default function RootLayout({
       lang="en"
       className={`${spaceGrotesk.variable} ${outfit.variable} ${jetbrainsMono.variable}`}
     >
-      <body style={{ minHeight: "100vh", fontFamily: "var(--font-dm-sans), sans-serif" }}>
+      <body suppressHydrationWarning style={{ minHeight: "100vh", fontFamily: "var(--font-dm-sans), sans-serif" }}>
         {children}
       </body>
     </html>
